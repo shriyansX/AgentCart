@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1",
+    "name": "Logitech G502 HERO",
+    "category": "Gaming Mouse",
+    "price": 3999,
+    "rating": 4.6,
+    "features": ["16K DPI Sensor", "11 Programmable Buttons", "Adjustable Weight"],
+    "image": "https://m.media-amazon.com/images/I/51H7Fm+hS0L._AC_SX679_.jpg",
+    "description": "The world's best-selling gaming mouse. High performance HERO 16K sensor.",
+    "url": "https://example.com/logitech-g502"
+  },
+  {
+    "id": "2",
+    "name": "Razer DeathAdder V2",
+    "category": "Gaming Mouse",
+    "price": 2499,
+    "rating": 4.5,
+    "features": ["Focus+ 20K DPI Optical Sensor", "8 Programmable Buttons", "Chroma RGB"],
+    "image": "https://m.media-amazon.com/images/I/61I4XpT0pFL._AC_SX679_.jpg",
+    "description": "Ergonomic gaming mouse with best-in-class sensor and switches.",
+    "url": "https://example.com/razer-deathadder"
+  },
+  {
+    "id": "3",
+    "name": "Redgear A-15",
+    "category": "Gaming Mouse",
+    "price": 499,
+    "rating": 4.1,
+    "features": ["Multi-color LED", "Up to 6400 DPI", "Durable Build"],
+    "image": "https://m.media-amazon.com/images/I/61p-Lq-q8+L._AC_SX679_.jpg",
+    "description": "Budget gaming mouse with basic features for beginners.",
+    "url": "https://example.com/redgear-a15"
+  },
+  {
+    "id": "4",
+    "name": "Sony WH-1000XM5",
+    "category": "Headphones",
+    "price": 29990,
+    "rating": 4.8,
+    "features": ["Industry-leading Noise Cancellation", "30-hour Battery", "Multipoint Connection"],
+    "image": "https://m.media-amazon.com/images/I/61+9fK+eBBL._AC_SX679_.jpg",
+    "description": "The best noise-cancelling headphones on the market.",
+    "url": "https://example.com/sony-xm5"
+  },
+  {
+    "id": "5",
+    "name": "Boat Rockerz 450",
+    "category": "Headphones",
+    "price": 1499,
+    "rating": 4.1,
+    "features": ["Up to 15 Hours Playback", "40mm Dynamic Drivers", "Foldable Design"],
+    "image": "https://m.media-amazon.com/images/I/51MgpSkhvGL._AC_SX679_.jpg",
+    "description": "Affordable wireless headphones with decent sound quality.",
+    "url": "https://example.com/boat-rockerz"
+  },
+  {
+    "id": "6",
+    "name": "Sennheiser HD 599",
+    "category": "Headphones",
+    "price": 8990,
+    "rating": 4.5,
+    "features": ["Open Back Design", "Ergonomic Acoustic Refinement", "Plush Earpads"],
+    "image": "https://m.media-amazon.com/images/I/61N+VwP6f+L._AC_SX679_.jpg",
+    "description": "Audiophile-grade open-back headphones for natural sound.",
+    "url": "https://example.com/sennheiser-hd599"
+  },
+  {
+    "id": "7",
+    "name": "MacBook Air M2",
+    "category": "Laptop",
+    "price": 94990,
+    "rating": 4.9,
+    "features": ["M2 Chip", "13.6-inch Liquid Retina Display", "18-hour Battery"],
+    "image": "https://m.media-amazon.com/images/I/71f5Eu5lJSL._AC_SX679_.jpg",
+    "description": "The best laptop for most people. Incredibly thin and powerful.",
+    "url": "https://example.com/macbook-air-m2"
+  },
+  {
+    "id": "8",
+    "name": "ASUS Vivobook 16",
+    "category": "Laptop",
+    "price": 45990,
+    "rating": 4.3,
+    "features": ["Ryzen 5 7530U", "16GB RAM", "512GB SSD"],
+    "image": "https://m.media-amazon.com/images/I/71f5Eu5lJSL._AC_SX679_.jpg",
+    "description": "Great value laptop for productivity and casual use.",
+    "url": "https://example.com/asus-vivobook"
+  },
+  {
+    "id": "9",
+    "name": "Acer Aspire 5",
+    "category": "Laptop",
+    "price": 32990,
+    "rating": 4.0,
+    "features": ["Intel Core i3 12th Gen", "8GB RAM", "512GB SSD"],
+    "image": "https://m.media-amazon.com/images/I/71f5Eu5lJSL._AC_SX679_.jpg",
+    "description": "Budget-friendly laptop for students and office work.",
+    "url": "https://example.com/acer-aspire-5"
+  },
+  {
+    "id": "10",
+    "name": "Keychron K2 V2",
+    "category": "Keyboard",
+    "price": 7499,
+    "rating": 4.7,
+    "features": ["Wireless/Wired", "Gateron Switches", "75% Layout"],
+    "image": "https://m.media-amazon.com/images/I/71f5Eu5lJSL._AC_SX679_.jpg",
+    "description": "Compact mechanical keyboard popular among coders.",
+    "url": "https://example.com/keychron-k2"
+  }
+]
