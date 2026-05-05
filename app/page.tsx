@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RotateCcw, Sparkles, Trophy, Gem, Crown, Scale, HelpCircle, X, Zap, Package, Brain, Target, Info } from "lucide-react";
+import { RotateCcw, Sparkles, Trophy, Gem, Crown, Scale, HelpCircle, X, Zap, Package, Brain, Target, Info, ArrowUpDown, SlidersHorizontal } from "lucide-react";
 import ChatInput from "@/components/ChatInput";
 import ProductGrid from "@/components/ProductGrid";
 import ThinkingLoader from "@/components/ThinkingLoader";
@@ -26,6 +26,8 @@ export default function HomePage() {
   const [lastQuery, setLastQuery] = useState("");
   const [showCompare, setShowCompare] = useState(false);
   const [showWhyNot, setShowWhyNot] = useState(false);
+  const [sortBy, setSortBy] = useState<"default" | "price_asc" | "price_desc" | "rating" | "reviews">("default");
+  const [filterBadge, setFilterBadge] = useState<string>("all");
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function HomePage() {
   const submit = async (q?: string) => {
     const sq = q ?? query;
     if (!sq.trim()) return;
-    setLastQuery(sq); setQuery(""); setState("loading"); setResults(null); setShowCompare(false); setShowWhyNot(false);
+    setLastQuery(sq); setQuery(""); setState("loading"); setResults(null); setShowCompare(false); setShowWhyNot(false); setSortBy("default"); setFilterBadge("all");
     try {
       const r = await fetch("/api/recommend", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sq }) });
       if (!r.ok) throw new Error();
@@ -46,8 +48,23 @@ export default function HomePage() {
     }
   };
 
-  const reset = () => { setState("empty"); setResults(null); setLastQuery(""); setQuery(""); };
+  const reset = () => { setState("empty"); setResults(null); setLastQuery(""); setQuery(""); setSortBy("default"); setFilterBadge("all"); };
   const top2 = results?.products.slice(0, 2) || [];
+
+  // Compute sorted + filtered products
+  const BADGES = ["all", "Best Seller", "Top Rated", "Budget Pick", "Premium"];
+  const sortedProducts = (() => {
+    if (!results) return [];
+    let arr = [...results.products];
+    if (filterBadge !== "all") arr = arr.filter(p => p.badge === filterBadge);
+    switch (sortBy) {
+      case "price_asc": arr.sort((a, b) => a.price - b.price); break;
+      case "price_desc": arr.sort((a, b) => b.price - a.price); break;
+      case "rating": arr.sort((a, b) => b.rating - a.rating); break;
+      case "reviews": arr.sort((a, b) => b.reviews - a.reviews); break;
+    }
+    return arr;
+  })();
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#070711", paddingTop: "56px" }}>
@@ -233,8 +250,68 @@ export default function HomePage() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+                {/* ── Sort & Filter Bar ── */}
+                {results.products.length > 0 && (
+                  <div className="glass-card p-3 flex flex-col sm:flex-row sm:items-center gap-3" style={{ borderRadius: 14 }}>
+                    {/* Left: label */}
+                    <div className="flex items-center gap-2 text-xs font-semibold flex-shrink-0" style={{ color: "#71717a" }}>
+                      <SlidersHorizontal className="w-3.5 h-3.5" />
+                      <span>Filter & Sort</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "rgba(99,102,241,0.1)", color: "#818cf8", border: "1px solid rgba(99,102,241,0.15)" }}>
+                        {sortedProducts.length} of {results.products.length}
+                      </span>
+                    </div>
+                    <div className="h-px sm:h-5 sm:w-px flex-shrink-0" style={{ background: "rgba(255,255,255,0.06)" }} />
+                    {/* Sort pills */}
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] uppercase tracking-widest font-semibold flex-shrink-0" style={{ color: "#52525b" }}>Sort:</span>
+                      {([
+                        { key: "default",    label: "Recommended" },
+                        { key: "price_asc",  label: "Price: Low → High" },
+                        { key: "price_desc", label: "Price: High → Low" },
+                        { key: "rating",     label: "Top Rated" },
+                        { key: "reviews",    label: "Most Reviews" },
+                      ] as const).map(opt => (
+                        <button key={opt.key} onClick={() => setSortBy(opt.key)}
+                          className="text-[11px] px-2.5 py-1 rounded-lg transition-all flex items-center gap-1"
+                          style={{
+                            background: sortBy === opt.key ? "rgba(99,102,241,0.15)" : "rgba(255,255,255,0.03)",
+                            border: sortBy === opt.key ? "1px solid rgba(99,102,241,0.35)" : "1px solid rgba(255,255,255,0.06)",
+                            color: sortBy === opt.key ? "#818cf8" : "#71717a",
+                            fontWeight: sortBy === opt.key ? 600 : 400,
+                          }}>
+                          {(opt.key === "price_asc" || opt.key === "price_desc" || opt.key === "rating" || opt.key === "reviews") && <ArrowUpDown className="w-2.5 h-2.5" />}
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="h-px sm:h-5 sm:w-px flex-shrink-0" style={{ background: "rgba(255,255,255,0.06)" }} />
+                    {/* Badge filter */}
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] uppercase tracking-widest font-semibold flex-shrink-0" style={{ color: "#52525b" }}>Badge:</span>
+                      {BADGES.filter(b => b === "all" || results.products.some(p => p.badge === b)).map(b => (
+                        <button key={b} onClick={() => setFilterBadge(b)}
+                          className="text-[11px] px-2.5 py-1 rounded-lg capitalize transition-all"
+                          style={{
+                            background: filterBadge === b ? "rgba(99,102,241,0.15)" : "rgba(255,255,255,0.03)",
+                            border: filterBadge === b ? "1px solid rgba(99,102,241,0.35)" : "1px solid rgba(255,255,255,0.06)",
+                            color: filterBadge === b ? "#818cf8" : "#71717a",
+                            fontWeight: filterBadge === b ? 600 : 400,
+                          }}>
+                          {b === "all" ? "All" : b}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {results.products.length > 0 ? (
-                  <ProductGrid products={results.products} topPickId={results.final_recommendation_id} />
+                  sortedProducts.length > 0
+                    ? <ProductGrid products={sortedProducts} topPickId={sortBy === "default" && filterBadge === "all" ? results.final_recommendation_id : ""} />
+                    : <div className="text-center py-12 glass-card rounded-2xl">
+                        <p className="text-base font-semibold mb-1" style={{ color: "#71717a" }}>No products match this filter.</p>
+                        <button onClick={() => setFilterBadge("all")} className="text-xs mt-2 underline" style={{ color: "#818cf8" }}>Clear filter</button>
+                      </div>
                 ) : (
                   <div className="text-center py-16"><p className="text-lg" style={{ color: "#71717a" }}>No products found. Try a different search.</p></div>
                 )}
