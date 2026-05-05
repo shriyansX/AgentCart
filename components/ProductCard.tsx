@@ -42,17 +42,28 @@ export default function ProductCard({ product, isTopPick }: ProductCardProps) {
       )}
 
       {/* Product image */}
-      <div
-        className={`relative w-full overflow-hidden bg-[#0d0d16] flex items-center justify-center ${
-          isTopPick ? "pt-10" : ""
-        }`}
-        style={{ height: "180px" }}
-      >
+      <div style={{ background: '#0d0d1a', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginTop: isTopPick ? '28px' : '0' }}>
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
+          style={{ width: '100%', height: '200px', objectFit: 'contain', padding: '16px' }}
           loading="lazy"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            const fallbacks: Record<string, string> = {
+              headphones: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=220&fit=crop',
+              earbuds: 'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=220&fit=crop',
+              laptop: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=220&fit=crop',
+              mouse: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=220&fit=crop',
+              keyboard: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=220&fit=crop',
+              monitor: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&h=220&fit=crop',
+              smartphone: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=220&fit=crop',
+              speaker: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=220&fit=crop',
+            };
+            const cat = (product.category || '').toLowerCase();
+            target.src = fallbacks[cat] || `https://placehold.co/400x220/111118/6366f1?text=${encodeURIComponent(product.name)}`;
+            target.onerror = null;
+          }}
         />
       </div>
 
@@ -110,16 +121,20 @@ export default function ProductCard({ product, isTopPick }: ProductCardProps) {
 
         {/* CTA */}
         <a
-          href={product.product_url || "#"}
+          href={
+            product.product_url && product.product_url !== '#'
+              ? product.product_url
+              : `https://www.amazon.in/s?k=${encodeURIComponent(product.name + ' ' + product.brand)}`
+          }
           target="_blank"
           rel="noopener noreferrer"
-          className={`mt-3 w-full py-3 rounded-xl font-semibold text-sm text-center transition-all duration-200 hover:opacity-90 active:scale-95 ${
+          className={`mt-3 block w-full py-3 rounded-xl font-semibold text-sm text-center transition-all duration-200 hover:opacity-90 active:scale-95 ${
             isTopPick
               ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/25"
               : "bg-[#1e1e2e] hover:bg-[#2a2a3e] text-white border border-[#2a2a3e]"
           }`}
         >
-          View Product →
+          View on Amazon →
         </a>
       </div>
     </div>
