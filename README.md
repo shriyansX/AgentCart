@@ -1,51 +1,83 @@
 # AgentCart – AI Shopping Agent
 
-AgentCart is a full-stack AI-powered shopping assistant built for modern product discovery. It doesn't just search; it understands intent, filters smartly, and provides human-like reasoning for its recommendations.
+## Problem Statement
 
-## 🧠 Core Concept
+Finding the right product online is overwhelming. Users waste hours comparing specs across dozens of tabs, reading conflicting reviews, and second-guessing their choices.
 
-This is NOT a basic search bar. It is a **mini-ChatGPT for shopping**.
-- **Understands Intent**: Parses natural language (e.g., "best gaming mouse under ₹2000").
-- **Smart Retrieval**: Filters from a curated dataset.
-- **AI Reasoning**: Explains *why* a specific product is recommended for you.
+## Solution
 
-## 🚀 Features
+AgentCart is an AI-powered shopping agent that understands natural language queries, retrieves relevant products from a curated dataset, ranks them intelligently using Google Gemini, and explains **WHY** each product is recommended — so users can decide in seconds, not hours.
 
-- **Conversational UI**: Chat-based interface with smooth animations.
-- **AI Intent Extraction**: Uses Gemini Pro to extract category, budget, and preferences.
-- **Intelligent Comparison**: Ranks products and highlights the "Best Choice".
-- **Premium Design**: Dark/Light mode, glassmorphism, and responsive layout.
-- **Fast & Responsive**: Built with Next.js 14 App Router and Tailwind CSS.
+## Features
 
-## 🛠️ Tech Stack
+- 🧠 **Natural language product search** — Ask in plain English or Hindi
+- 🤖 **AI-powered intent understanding** (Google Gemini 1.5 Flash)
+- 🎯 **Smart product filtering** — category, budget, use-case, brand preference
+- 📊 **AI product ranking & comparison** with explanatory summaries
+- 💬 **Per-product AI reasoning** — "why this product" for every card
+- ⭐ **Final recommendation** with one-line buy rationale
+- 🌙 **Dark mode UI** — premium design with indigo accents
+- 📱 **Fully responsive** — mobile, tablet, desktop
+- 🛡️ **Graceful fallback** — never breaks even if AI is unavailable
 
-- **Frontend**: Next.js 14, Tailwind CSS, Framer Motion, Lucide Icons.
-- **Backend**: Next.js API Routes.
-- **AI**: Google Gemini Pro API.
-- **Data**: Static JSON Mock Dataset.
+## Tech Stack
 
-## 📦 Setup Instructions
+| Layer    | Technology                     |
+|----------|-------------------------------|
+| Frontend | Next.js 16 App Router + TypeScript |
+| Styling  | Tailwind CSS v4               |
+| Fonts    | Syne (headings) + DM Sans (body) |
+| AI       | Google Gemini 1.5 Flash via `@google/generative-ai` |
+| Data     | Static JSON (40+ products)    |
+| Animations | Framer Motion               |
 
-1. **Clone the repository**
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-3. **Environment Variables**:
-   Create a `.env.local` file in the root and add your Gemini API key:
-   ```env
-   GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
-   ```
-4. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
-5. **Open the app**: Navigate to [http://localhost:3000](http://localhost:3000)
+## Setup
 
-## 📸 Screenshots
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/agentcart.git
+cd agentcart
 
-*(Placeholder for screenshots)*
+# 2. Install dependencies
+npm install
 
-## 🎥 Demo
+# 3. Add your Gemini API key
+echo "GOOGLE_GENERATIVE_AI_API_KEY=your_key_here" > .env.local
 
-*(Placeholder for demo video)*
+# 4. Start the dev server
+npm run dev
+
+# 5. Open in browser
+open http://localhost:3000
+```
+
+## Example Queries
+
+- `"Best headphones under ₹2000"`
+- `"Laptop for coding under ₹60,000"`
+- `"Gaming mouse under ₹3000"`
+- `"Budget smartphone under ₹15,000"`
+- `"Premium wireless earbuds for music"`
+- `"Logitech gaming keyboard for FPS"`
+
+## Architecture
+
+```
+User Query
+    ↓
+parseUserIntent() [Gemini] → Extracts: category, budget, use_case, brand, keywords
+    ↓
+filterProducts() [filter.ts] → Fuzzy category match + budget filter + scoring sort → Top 5
+    ↓
+rankAndExplainProducts() [Gemini] → Ranks products + generates per-product reasons + summary
+    ↓
+Merged Response → EnrichedProduct[] with AI reasons → Rendered as ProductCards
+```
+
+## Demo
+
+[Video placeholder]
+
+## Screenshots
+
+[Screenshot placeholder]
