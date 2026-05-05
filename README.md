@@ -73,11 +73,3 @@ rankAndExplainProducts() [Gemini] → Ranks products + generates per-product rea
     ↓
 Merged Response → EnrichedProduct[] with AI reasons → Rendered as ProductCards
 ```
-
-## Demo
-
-[Video placeholder]
-
-## Screenshots
-
-[Screenshot placeholder]
