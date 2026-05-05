@@ -8,8 +8,12 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display
 
 export const metadata: Metadata = {
   title: "AgentCart – AI Shopping Agent",
-  description: "Find the perfect product in seconds. AI-powered recommendations by Google Gemini.",
+  description: "AI-powered shopping assistant",
   keywords: ["AI shopping", "product recommendations", "Gemini AI", "smart shopping agent"],
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -23,11 +27,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <nav className="fixed top-0 left-0 right-0 z-50 glass-card-solid border-b border-white/[0.05]" style={{ borderRadius: 0 }}>
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5 no-underline">
-              <div style={{ width: 32, height: 32, borderRadius: 10, background: "linear-gradient(135deg,#6366f1,#8b5cf6)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(99,102,241,0.25)" }}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-                  <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
-                  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 001.95 1.53h9.58a2 2 0 001.95-1.67l1.65-9.33H5.12"/>
-                </svg>
+              <div style={{ width: 32, height: 32, borderRadius: 10, overflow: "hidden", boxShadow: "0 4px 12px rgba(99,102,241,0.25)" }}>
+                <img src="/icon.png" alt="AgentCart" width="32" height="32" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div>
                 <span className="font-heading font-bold gradient-text text-base leading-none">AgentCart</span>
