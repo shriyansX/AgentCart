@@ -13,11 +13,12 @@ export default function ProductGrid({ products, topPickId }: ProductGridProps) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {products.map((product) => (
+      {products.map((product, index) => (
         <ProductCard
           key={product.id}
           product={product}
           isTopPick={product.id === topPickId}
+          index={index}
         />
       ))}
     </div>
